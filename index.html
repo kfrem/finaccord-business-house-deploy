@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Finaccord Business House opportunity and action tracking dashboard."
+    />
+    <title>Business House | Opportunity Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#">
+          <span class="brand-mark">FH</span>
+          <span>
+            <strong>Finaccord</strong>
+            <small>Business House</small>
+          </span>
+        </a>
+
+        <nav class="nav-list" aria-label="Dashboard navigation">
+          <button class="nav-item active" data-view="dashboard">
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" data-view="opportunities">
+            <span>Opportunities</span>
+            <span class="nav-count" id="navOpportunityCount">0</span>
+          </button>
+          <button class="nav-item" data-view="actions">
+            <span>Action Centre</span>
+            <span class="nav-count attention" id="navActionCount">0</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p>Business command centre</p>
+          <span id="lastSaved">Saved locally</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">FINACCORD BUSINESS HOUSE</p>
+            <h1 id="pageTitle">Opportunity Overview</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="button secondary" id="exportButton">Export</button>
+            <label class="button secondary file-button">
+              Import
+              <input id="importInput" type="file" accept=".json" />
+            </label>
+            <button class="button primary" id="addOpportunityButton">
+              + New opportunity
+            </button>
+          </div>
+        </header>
+
+        <section id="dashboardView" class="view active">
+          <div class="hero">
+            <div>
+              <p class="eyebrow light">LIVE BUSINESS PIPELINE</p>
+              <h2>Turn every opportunity into a clear next action.</h2>
+              <p>
+                Track applications, platforms, assessments, credentials and
+                follow-ups from one operating dashboard.
+              </p>
+            </div>
+            <div class="hero-date">
+              <span id="todayLabel"></span>
+              <strong id="heroActionCount">0 actions</strong>
+              <small>currently need attention</small>
+            </div>
+          </div>
+
+          <div class="metric-grid" id="metricGrid"></div>
+
+          <div class="dashboard-grid">
+            <section class="panel priority-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">PRIORITY QUEUE</p>
+                  <h3>What needs action</h3>
+                </div>
+                <button class="text-button" data-switch-view="actions">
+                  View all
+                </button>
+              </div>
+              <div id="priorityList" class="priority-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">PIPELINE HEALTH</p>
+                  <h3>Opportunities by stage</h3>
+                </div>
+              </div>
+              <div id="stageChart" class="stage-chart"></div>
+            </section>
+          </div>
+
+          <section class="panel recent-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">CURRENT OPPORTUNITIES</p>
+                <h3>Active business pipeline</h3>
+              </div>
+              <button class="text-button" data-switch-view="opportunities">
+                Manage pipeline
+              </button>
+            </div>
+            <div id="recentOpportunities" class="opportunity-table-wrap"></div>
+          </section>
+        </section>
+
+        <section id="opportunitiesView" class="view">
+          <div class="toolbar">
+            <label class="search-field">
+              <span>Search</span>
+              <input
+                id="opportunitySearch"
+                type="search"
+                placeholder="Search company, platform or opportunity"
+              />
+            </label>
+            <label>
+              <span>Status</span>
+              <select id="statusFilter">
+                <option value="all">All statuses</option>
+              </select>
+            </label>
+            <label>
+              <span>Type</span>
+              <select id="typeFilter">
+                <option value="all">All types</option>
+              </select>
+            </label>
+          </div>
+          <div id="opportunityGrid" class="opportunity-grid"></div>
+        </section>
+
+        <section id="actionsView" class="view">
+          <div class="action-summary">
+            <div>
+              <p class="eyebrow">ACTION CENTRE</p>
+              <h2>Outstanding work, ordered by urgency.</h2>
+            </div>
+            <button class="button primary" id="addActionButton">
+              + Add action
+            </button>
+          </div>
+          <div id="actionBoard" class="action-board"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="opportunityDialog" class="modal">
+      <form id="opportunityForm" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">OPPORTUNITY RECORD</p>
+            <h2 id="opportunityDialogTitle">Add opportunity</h2>
+          </div>
+          <button type="button" class="icon-button close-dialog">×</button>
+        </div>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label>
+            <span>Opportunity</span>
+            <input name="name" required />
+          </label>
+          <label>
+            <span>Company / platform</span>
+            <input name="company" required />
+          </label>
+          <label>
+            <span>Type</span>
+            <select name="type" required></select>
+          </label>
+          <label>
+            <span>Status</span>
+            <select name="status" required></select>
+          </label>
+          <label>
+            <span>Potential value</span>
+            <input name="value" placeholder="e.g. $90-$110/hour" />
+          </label>
+          <label>
+            <span>Next review date</span>
+            <input name="reviewDate" type="date" />
+          </label>
+          <label class="full-width">
+            <span>URL</span>
+            <input name="url" type="url" placeholder="https://..." />
+          </label>
+          <label class="full-width">
+            <span>Notes</span>
+            <textarea name="notes" rows="4"></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="button danger hidden" id="deleteOpportunityButton">
+            Delete
+          </button>
+          <span class="spacer"></span>
+          <button type="button" class="button secondary close-dialog">Cancel</button>
+          <button type="submit" class="button primary">Save opportunity</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="actionDialog" class="modal">
+      <form id="actionForm" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">ACTION ITEM</p>
+            <h2 id="actionDialogTitle">Add action</h2>
+          </div>
+          <button type="button" class="icon-button close-dialog">×</button>
+        </div>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label class="full-width">
+            <span>Action required</span>
+            <input name="title" required />
+          </label>
+          <label>
+            <span>Opportunity</span>
+            <select name="opportunityId"></select>
+          </label>
+          <label>
+            <span>Priority</span>
+            <select name="priority">
+              <option>High</option>
+              <option selected>Medium</option>
+              <option>Low</option>
+            </select>
+          </label>
+          <label>
+            <span>Due date</span>
+            <input name="dueDate" type="date" />
+          </label>
+          <label>
+            <span>Status</span>
+            <select name="status">
+              <option>Outstanding</option>
+              <option>In progress</option>
+              <option>Waiting</option>
+              <option>Completed</option>
+            </select>
+          </label>
+          <label class="full-width">
+            <span>Notes</span>
+            <textarea name="notes" rows="3"></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="button danger hidden" id="deleteActionButton">
+            Delete
+          </button>
+          <span class="spacer"></span>
+          <button type="button" class="button secondary close-dialog">Cancel</button>
+          <button type="submit" class="button primary">Save action</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
