@@ -1,26 +1,31 @@
-# Finaccord Business House Dashboard
+# Finaccord Business Assistant
 
-A lightweight opportunity and action tracking dashboard for:
+A simple business-by-business work assistant for DataAnnotation, Mercor,
+finance applications, and future work platforms.
 
-- AI work platforms and assessments
-- Finance job applications
-- Consulting and contract opportunities
-- Follow-ups, deadlines and outstanding actions
+## Features
+
+- Plain daily task list ordered by urgency
+- Separate card for every business or work platform
+- Direct links back to each work website
+- Clear completed, outstanding, next-action and health-check information
+- Dated progress history
+- Safe login-email display without publishing passwords
+- Local progress-note entry
 
 ## Run locally
 
 Serve this directory with any static web server:
 
 ```powershell
-npx serve .
+python -m http.server 4173
 ```
 
-The dashboard stores records in the browser's local storage. Use **Export** regularly to create a JSON backup and **Import** to restore it.
+Locally entered history notes are stored in the browser's `localStorage`.
+Canonical business status is maintained in the source data and can be updated
+and republished by the Codex assistant.
 
-## Deploy
+## Deployment
 
-The project is a static site and can be deployed directly to Hostinger, GitHub Pages, Netlify, Vercel or any standard web host.
-
-## Initial records
-
-The first load includes seeded records for Mercor, DataAnnotation and the current Financial Controller application pipeline. These can be edited or deleted from the dashboard.
+The private development repository is mirrored to a public deployment-only
+repository. Hostinger pulls the `main` branch into `public_html`.

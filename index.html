@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Finaccord Business House opportunity and action tracking dashboard."
+      content="Godfred's simple business and work assistant."
     />
-    <title>Business House | Opportunity Dashboard</title>
+    <title>My Business Assistant | Finaccord</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,264 +17,160 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar">
-        <a class="brand" href="#">
-          <span class="brand-mark">FH</span>
-          <span>
-            <strong>Finaccord</strong>
-            <small>Business House</small>
-          </span>
-        </a>
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark">GF</span>
+        <span>
+          <strong>My Business Assistant</strong>
+          <small>Finaccord Business House</small>
+        </span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="#today">Today</a>
+        <a href="#businesses">My work</a>
+        <a href="#history">History</a>
+      </nav>
+      <button class="button light" id="addUpdateButton">+ Record an update</button>
+    </header>
 
-        <nav class="nav-list" aria-label="Dashboard navigation">
-          <button class="nav-item active" data-view="dashboard">
-            <span>Overview</span>
-          </button>
-          <button class="nav-item" data-view="opportunities">
-            <span>Opportunities</span>
-            <span class="nav-count" id="navOpportunityCount">0</span>
-          </button>
-          <button class="nav-item" data-view="actions">
-            <span>Action Centre</span>
-            <span class="nav-count attention" id="navActionCount">0</span>
-          </button>
-        </nav>
-
-        <div class="sidebar-footer">
-          <p>Business command centre</p>
-          <span id="lastSaved">Saved locally</span>
+    <main id="top">
+      <section class="welcome">
+        <div>
+          <p class="eyebrow">YOUR DAILY BRIEFING</p>
+          <h1 id="greeting">Good morning, Godfred</h1>
+          <p class="welcome-copy">
+            This page shows where you are, what must be done next, and the
+            correct website to continue each piece of work.
+          </p>
         </div>
-      </aside>
+        <div class="date-card">
+          <span id="todayLabel"></span>
+          <strong id="openTaskCount">0 tasks</strong>
+          <small>need your attention</small>
+        </div>
+      </section>
 
-      <main class="main-content">
-        <header class="topbar">
+      <section class="section" id="today">
+        <div class="section-heading">
           <div>
-            <p class="eyebrow">FINACCORD BUSINESS HOUSE</p>
-            <h1 id="pageTitle">Opportunity Overview</h1>
+            <p class="eyebrow">START HERE</p>
+            <h2>What you need to do</h2>
           </div>
-          <div class="topbar-actions">
-            <button class="button secondary" id="exportButton">Export</button>
-            <label class="button secondary file-button">
-              Import
-              <input id="importInput" type="file" accept=".json" />
-            </label>
-            <button class="button primary" id="addOpportunityButton">
-              + New opportunity
+          <p>Work from the top. The most important item is shown first.</p>
+        </div>
+        <div class="today-list" id="todayList"></div>
+      </section>
+
+      <section class="section" id="businesses">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR WORKPLACES</p>
+            <h2>Each business, clearly separated</h2>
+          </div>
+          <p>Click a business to see everything completed and outstanding.</p>
+        </div>
+        <div class="business-list" id="businessList"></div>
+      </section>
+
+      <section class="section support-grid">
+        <article class="help-card">
+          <div class="help-icon">AI</div>
+          <div>
+            <p class="eyebrow">KEEP THIS UPDATED</p>
+            <h2>Ask the AI assistant to update this page</h2>
+            <p>
+              After completing work, tell Codex what happened. Include the
+              business name, what you completed, any response received, and
+              the next date. Codex can then update and republish this dashboard.
+            </p>
+            <button class="button primary" id="copyUpdatePrompt">
+              Copy update instructions
             </button>
           </div>
-        </header>
+        </article>
 
-        <section id="dashboardView" class="view active">
-          <div class="hero">
-            <div>
-              <p class="eyebrow light">LIVE BUSINESS PIPELINE</p>
-              <h2>Turn every opportunity into a clear next action.</h2>
-              <p>
-                Track applications, platforms, assessments, credentials and
-                follow-ups from one operating dashboard.
-              </p>
-            </div>
-            <div class="hero-date">
-              <span id="todayLabel"></span>
-              <strong id="heroActionCount">0 actions</strong>
-              <small>currently need attention</small>
-            </div>
+        <article class="security-card">
+          <p class="eyebrow">LOGIN SAFETY</p>
+          <h2>Your passwords stay protected</h2>
+          <p>
+            This public dashboard shows the login email only. Passwords remain
+            in your browser password manager and are filled after you open the
+            work website.
+          </p>
+          <a
+            class="button outline"
+            href="https://passwords.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open Google Password Manager
+          </a>
+        </article>
+      </section>
+
+      <section class="section" id="history">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">TRACK RECORD</p>
+            <h2>What has been done</h2>
           </div>
+          <p>A dated record of progress across all businesses.</p>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+    </main>
 
-          <div class="metric-grid" id="metricGrid"></div>
-
-          <div class="dashboard-grid">
-            <section class="panel priority-panel">
-              <div class="panel-header">
-                <div>
-                  <p class="eyebrow">PRIORITY QUEUE</p>
-                  <h3>What needs action</h3>
-                </div>
-                <button class="text-button" data-switch-view="actions">
-                  View all
-                </button>
-              </div>
-              <div id="priorityList" class="priority-list"></div>
-            </section>
-
-            <section class="panel">
-              <div class="panel-header">
-                <div>
-                  <p class="eyebrow">PIPELINE HEALTH</p>
-                  <h3>Opportunities by stage</h3>
-                </div>
-              </div>
-              <div id="stageChart" class="stage-chart"></div>
-            </section>
-          </div>
-
-          <section class="panel recent-panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">CURRENT OPPORTUNITIES</p>
-                <h3>Active business pipeline</h3>
-              </div>
-              <button class="text-button" data-switch-view="opportunities">
-                Manage pipeline
-              </button>
-            </div>
-            <div id="recentOpportunities" class="opportunity-table-wrap"></div>
-          </section>
-        </section>
-
-        <section id="opportunitiesView" class="view">
-          <div class="toolbar">
-            <label class="search-field">
-              <span>Search</span>
-              <input
-                id="opportunitySearch"
-                type="search"
-                placeholder="Search company, platform or opportunity"
-              />
-            </label>
-            <label>
-              <span>Status</span>
-              <select id="statusFilter">
-                <option value="all">All statuses</option>
-              </select>
-            </label>
-            <label>
-              <span>Type</span>
-              <select id="typeFilter">
-                <option value="all">All types</option>
-              </select>
-            </label>
-          </div>
-          <div id="opportunityGrid" class="opportunity-grid"></div>
-        </section>
-
-        <section id="actionsView" class="view">
-          <div class="action-summary">
-            <div>
-              <p class="eyebrow">ACTION CENTRE</p>
-              <h2>Outstanding work, ordered by urgency.</h2>
-            </div>
-            <button class="button primary" id="addActionButton">
-              + Add action
-            </button>
-          </div>
-          <div id="actionBoard" class="action-board"></div>
-        </section>
-      </main>
-    </div>
-
-    <dialog id="opportunityDialog" class="modal">
-      <form id="opportunityForm" method="dialog">
+    <dialog id="businessDialog" class="modal">
+      <div class="modal-content">
         <div class="modal-header">
           <div>
-            <p class="eyebrow">OPPORTUNITY RECORD</p>
-            <h2 id="opportunityDialogTitle">Add opportunity</h2>
+            <p class="eyebrow" id="dialogType"></p>
+            <h2 id="dialogTitle"></h2>
           </div>
-          <button type="button" class="icon-button close-dialog">×</button>
-        </div>
-        <input type="hidden" name="id" />
-        <div class="form-grid">
-          <label>
-            <span>Opportunity</span>
-            <input name="name" required />
-          </label>
-          <label>
-            <span>Company / platform</span>
-            <input name="company" required />
-          </label>
-          <label>
-            <span>Type</span>
-            <select name="type" required></select>
-          </label>
-          <label>
-            <span>Status</span>
-            <select name="status" required></select>
-          </label>
-          <label>
-            <span>Potential value</span>
-            <input name="value" placeholder="e.g. $90-$110/hour" />
-          </label>
-          <label>
-            <span>Next review date</span>
-            <input name="reviewDate" type="date" />
-          </label>
-          <label class="full-width">
-            <span>URL</span>
-            <input name="url" type="url" placeholder="https://..." />
-          </label>
-          <label class="full-width">
-            <span>Notes</span>
-            <textarea name="notes" rows="4"></textarea>
-          </label>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="button danger hidden" id="deleteOpportunityButton">
-            Delete
+          <button class="icon-button" id="closeBusinessDialog" aria-label="Close">
+            &times;
           </button>
-          <span class="spacer"></span>
-          <button type="button" class="button secondary close-dialog">Cancel</button>
-          <button type="submit" class="button primary">Save opportunity</button>
+        </div>
+        <div id="businessDetails"></div>
+      </div>
+    </dialog>
+
+    <dialog id="updateDialog" class="modal">
+      <form id="updateForm" class="modal-content">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">RECORD PROGRESS</p>
+            <h2>Add a work update</h2>
+          </div>
+          <button type="button" class="icon-button close-update" aria-label="Close">
+            &times;
+          </button>
+        </div>
+        <label>
+          <span>Which business?</span>
+          <select name="businessId" required></select>
+        </label>
+        <label>
+          <span>What happened?</span>
+          <textarea
+            name="note"
+            rows="4"
+            placeholder="Example: I completed the interview and am waiting for a response."
+            required
+          ></textarea>
+        </label>
+        <label>
+          <span>Date</span>
+          <input name="date" type="date" required />
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="button outline close-update">Cancel</button>
+          <button type="submit" class="button primary">Save update</button>
         </div>
       </form>
     </dialog>
 
-    <dialog id="actionDialog" class="modal">
-      <form id="actionForm" method="dialog">
-        <div class="modal-header">
-          <div>
-            <p class="eyebrow">ACTION ITEM</p>
-            <h2 id="actionDialogTitle">Add action</h2>
-          </div>
-          <button type="button" class="icon-button close-dialog">×</button>
-        </div>
-        <input type="hidden" name="id" />
-        <div class="form-grid">
-          <label class="full-width">
-            <span>Action required</span>
-            <input name="title" required />
-          </label>
-          <label>
-            <span>Opportunity</span>
-            <select name="opportunityId"></select>
-          </label>
-          <label>
-            <span>Priority</span>
-            <select name="priority">
-              <option>High</option>
-              <option selected>Medium</option>
-              <option>Low</option>
-            </select>
-          </label>
-          <label>
-            <span>Due date</span>
-            <input name="dueDate" type="date" />
-          </label>
-          <label>
-            <span>Status</span>
-            <select name="status">
-              <option>Outstanding</option>
-              <option>In progress</option>
-              <option>Waiting</option>
-              <option>Completed</option>
-            </select>
-          </label>
-          <label class="full-width">
-            <span>Notes</span>
-            <textarea name="notes" rows="3"></textarea>
-          </label>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="button danger hidden" id="deleteActionButton">
-            Delete
-          </button>
-          <span class="spacer"></span>
-          <button type="button" class="button secondary close-dialog">Cancel</button>
-          <button type="submit" class="button primary">Save action</button>
-        </div>
-      </form>
-    </dialog>
-
+    <div class="toast" id="toast" role="status"></div>
     <script src="app.js"></script>
   </body>
 </html>

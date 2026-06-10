@@ -1,111 +1,151 @@
-const STORAGE_KEY = "finaccord-business-house-v1";
-
-const OPPORTUNITY_TYPES = [
-  "AI platform",
-  "Finance role",
-  "Consulting",
-  "Contract",
-  "Business lead",
-  "Partnership",
-  "Other",
-];
-
-const OPPORTUNITY_STATUSES = [
-  "Profile setup",
-  "Assessment",
-  "Under review",
-  "Qualified",
-  "Active",
-  "Waiting",
-  "Closed",
-];
+const STORAGE_KEY = "finaccord-business-assistant-v2";
 
 const seedData = {
-  opportunities: [
+  businesses: [
     {
-      id: "opp-mercor",
-      name: "Finance & Banking Expert",
-      company: "Mercor",
-      type: "AI platform",
-      status: "Assessment",
-      value: "$90-$110/hour",
-      reviewDate: "2026-06-13",
-      url: "https://work.mercor.com/",
-      notes:
-        "Profile completed with finance expertise, FCCA credentials and project evidence. Domain Expert Interview remains personal action.",
-      createdAt: "2026-06-10T08:00:00.000Z",
-      updatedAt: "2026-06-10T08:00:00.000Z",
-    },
-    {
-      id: "opp-dataannotation",
-      name: "Finance and Accounting AI Evaluator",
-      company: "DataAnnotation",
-      type: "AI platform",
-      status: "Under review",
-      value: "Project dependent",
-      reviewDate: "2026-06-17",
+      id: "dataannotation",
+      name: "DataAnnotation",
+      shortName: "DA",
+      type: "AI finance work platform",
+      status: "Waiting for work",
+      statusTone: "waiting",
       url: "https://app.dataannotation.tech/workers/starter_assessment_complete",
-      notes:
-        "Starter assessment completed. Profile, skills, LinkedIn and ACCA credential saved. Awaiting platform review and project allocation.",
-      createdAt: "2026-06-10T09:00:00.000Z",
-      updatedAt: "2026-06-10T09:00:00.000Z",
+      accountEmail: "kfrem@hotmail.com",
+      currentPosition:
+        "Your starter assessment and expertise profile have been completed. No project has been assigned yet.",
+      nextAction:
+        "Check the platform and Hotmail for approval, a qualification test, or a project invitation.",
+      nextDate: "2026-06-17",
+      value: "Project dependent",
+      completed: [
+        "Starter assessment completed",
+        "Finance and accounting expertise added",
+        "LinkedIn and professional profile information added",
+        "ACCA/FCCA credential recorded",
+      ],
+      outstanding: [
+        "Wait for DataAnnotation to review the account",
+        "Complete any new qualification personally if one appears",
+        "Add PayPal details personally when payment setup becomes available",
+      ],
+      healthCheck:
+        "The account is working if the dashboard opens, your profile remains visible, and no warning or request for missing information appears.",
     },
     {
-      id: "opp-pipeline",
-      name: "Financial Controller Applications",
-      company: "UK job market",
-      type: "Finance role",
-      status: "Active",
+      id: "mercor",
+      name: "Mercor",
+      shortName: "M",
+      type: "AI expert work platform",
+      status: "Interview required",
+      statusTone: "action",
+      url: "https://work.mercor.com/home?tab=assessments",
+      accountEmail: "kfrem@hotmail.com",
+      currentPosition:
+        "Your finance profile is substantially completed. The Domain Expert Interview is the main remaining requirement.",
+      nextAction:
+        "Prepare for and personally complete the Finance and Banking Domain Expert Interview.",
+      nextDate: "2026-06-13",
+      value: "$90-$110 per hour",
+      completed: [
+        "Mercor account and email verified",
+        "Finance and banking expertise entered",
+        "FCCA qualification and work evidence entered",
+        "Profile reviewed for relevant AI finance work",
+      ],
+      outstanding: [
+        "Prepare for the Domain Expert Interview",
+        "Complete the interview personally",
+        "Complete optional LinkedIn verification",
+        "Monitor Hotmail for interview results or opportunities",
+      ],
+      healthCheck:
+        "The account is working if the assessments page opens and the interview is shown. After completion, check that its status changes from pending.",
+    },
+    {
+      id: "finance-jobs",
+      name: "Finance Job Applications",
+      shortName: "FJ",
+      type: "Employment and contract work",
+      status: "Applications active",
+      statusTone: "active",
+      url: "https://www.linkedin.com/jobs/",
+      accountEmail: "Use the email saved on each job platform",
+      currentPosition:
+        "Specialist CV versions are available for Financial Controller, finance transformation, SaaS, fintech, and multi-entity roles.",
+      nextAction:
+        "Review current applications and submit targeted applications using the most relevant CV version.",
+      nextDate: "2026-06-12",
       value: "£65,000+ target",
-      reviewDate: "2026-06-12",
-      url: "",
-      notes:
-        "Continue targeted applications across SaaS, fintech and multi-entity finance roles using the current specialist CV variants.",
-      createdAt: "2026-06-10T09:15:00.000Z",
-      updatedAt: "2026-06-10T09:15:00.000Z",
+      completed: [
+        "Core CV and specialist CV versions prepared",
+        "FCCA qualification clearly presented",
+        "AI finance and financial control experience highlighted",
+      ],
+      outstanding: [
+        "Record every submitted application",
+        "Track recruiter replies and interview dates",
+        "Follow up on applications with no response",
+      ],
+      healthCheck:
+        "Each application should have a company, job title, date applied, CV used, current status, and next follow-up date.",
     },
   ],
-  actions: [
+  tasks: [
     {
-      id: "act-mercor-interview",
-      opportunityId: "opp-mercor",
-      title: "Prepare for and personally complete Mercor Domain Expert Interview",
-      priority: "High",
+      id: "mercor-interview",
+      businessId: "mercor",
+      title: "Prepare for and complete the Mercor interview",
+      detail: "This is the most important action needed before Mercor can offer work.",
       dueDate: "2026-06-13",
-      status: "Outstanding",
-      notes:
-        "Refresh month-end close, IFRS/FRS 102, cash flow, controls, variance analysis and AI financial reasoning.",
-      createdAt: "2026-06-10T09:20:00.000Z",
+      priority: "high",
+      status: "Open",
     },
     {
-      id: "act-dataannotation-monitor",
-      opportunityId: "opp-dataannotation",
-      title: "Monitor Hotmail for DataAnnotation approval or further assessment",
-      priority: "Medium",
+      id: "finance-review",
+      businessId: "finance-jobs",
+      title: "Review finance job applications",
+      detail: "Record applications, replies, interviews, and the next follow-up date.",
+      dueDate: "2026-06-12",
+      priority: "normal",
+      status: "Open",
+    },
+    {
+      id: "dataannotation-check",
+      businessId: "dataannotation",
+      title: "Check DataAnnotation and Hotmail",
+      detail: "Look for approval, a qualification test, or a project invitation.",
       dueDate: "2026-06-17",
+      priority: "waiting",
       status: "Waiting",
-      notes: "Check inbox and spam folder. No further account action is currently available.",
-      createdAt: "2026-06-10T09:22:00.000Z",
     },
     {
-      id: "act-paypal",
-      opportunityId: "opp-dataannotation",
-      title: "Confirm PayPal account details personally",
-      priority: "Medium",
+      id: "paypal",
+      businessId: "dataannotation",
+      title: "Add PayPal details when requested",
+      detail: "Payment account details must be completed personally.",
       dueDate: "",
-      status: "Outstanding",
-      notes: "Payment account setup is intentionally reserved for the account owner.",
-      createdAt: "2026-06-10T09:24:00.000Z",
+      priority: "normal",
+      status: "Open",
+    },
+  ],
+  history: [
+    {
+      id: "history-1",
+      businessId: "dataannotation",
+      date: "2026-06-10",
+      note: "Starter assessment completed. Expertise, LinkedIn, and ACCA/FCCA details reviewed.",
     },
     {
-      id: "act-linkedin",
-      opportunityId: "opp-mercor",
-      title: "Complete optional LinkedIn verification on Mercor",
-      priority: "Low",
-      dueDate: "",
-      status: "Outstanding",
-      notes: "Mercor states verified LinkedIn profiles receive more offers.",
-      createdAt: "2026-06-10T09:26:00.000Z",
+      id: "history-2",
+      businessId: "mercor",
+      date: "2026-06-10",
+      note: "Account verified and finance expert profile completed. Domain interview remains outstanding.",
+    },
+    {
+      id: "history-3",
+      businessId: "finance-jobs",
+      date: "2026-06-10",
+      note: "Finance-focused CV collection prepared for targeted applications.",
     },
   ],
 };
@@ -113,53 +153,42 @@ const seedData = {
 let state = loadState();
 
 const elements = {
-  views: {
-    dashboard: document.querySelector("#dashboardView"),
-    opportunities: document.querySelector("#opportunitiesView"),
-    actions: document.querySelector("#actionsView"),
-  },
-  pageTitle: document.querySelector("#pageTitle"),
-  navItems: document.querySelectorAll(".nav-item"),
-  metricGrid: document.querySelector("#metricGrid"),
-  priorityList: document.querySelector("#priorityList"),
-  stageChart: document.querySelector("#stageChart"),
-  recentOpportunities: document.querySelector("#recentOpportunities"),
-  opportunityGrid: document.querySelector("#opportunityGrid"),
-  actionBoard: document.querySelector("#actionBoard"),
-  navOpportunityCount: document.querySelector("#navOpportunityCount"),
-  navActionCount: document.querySelector("#navActionCount"),
-  heroActionCount: document.querySelector("#heroActionCount"),
+  greeting: document.querySelector("#greeting"),
   todayLabel: document.querySelector("#todayLabel"),
-  lastSaved: document.querySelector("#lastSaved"),
-  opportunityDialog: document.querySelector("#opportunityDialog"),
-  opportunityForm: document.querySelector("#opportunityForm"),
-  opportunityDialogTitle: document.querySelector("#opportunityDialogTitle"),
-  deleteOpportunityButton: document.querySelector("#deleteOpportunityButton"),
-  actionDialog: document.querySelector("#actionDialog"),
-  actionForm: document.querySelector("#actionForm"),
-  actionDialogTitle: document.querySelector("#actionDialogTitle"),
-  deleteActionButton: document.querySelector("#deleteActionButton"),
-  opportunitySearch: document.querySelector("#opportunitySearch"),
-  statusFilter: document.querySelector("#statusFilter"),
-  typeFilter: document.querySelector("#typeFilter"),
-  importInput: document.querySelector("#importInput"),
+  openTaskCount: document.querySelector("#openTaskCount"),
+  todayList: document.querySelector("#todayList"),
+  businessList: document.querySelector("#businessList"),
+  historyList: document.querySelector("#historyList"),
+  businessDialog: document.querySelector("#businessDialog"),
+  dialogType: document.querySelector("#dialogType"),
+  dialogTitle: document.querySelector("#dialogTitle"),
+  businessDetails: document.querySelector("#businessDetails"),
+  updateDialog: document.querySelector("#updateDialog"),
+  updateForm: document.querySelector("#updateForm"),
+  toast: document.querySelector("#toast"),
 };
+
+function cloneSeed() {
+  return JSON.parse(JSON.stringify(seedData));
+}
 
 function loadState() {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : structuredClone(seedData);
+    if (!stored) return cloneSeed();
+    const parsed = JSON.parse(stored);
+    return {
+      businesses: seedData.businesses,
+      tasks: parsed.tasks || seedData.tasks,
+      history: parsed.history || seedData.history,
+    };
   } catch {
-    return structuredClone(seedData);
+    return cloneSeed();
   }
 }
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  elements.lastSaved.textContent = `Saved ${new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}`;
 }
 
 function escapeHtml(value = "") {
@@ -171,503 +200,248 @@ function escapeHtml(value = "") {
     .replaceAll("'", "&#039;");
 }
 
-function formatDate(dateString) {
-  if (!dateString) return "No date";
-  return new Date(`${dateString}T12:00:00`).toLocaleDateString("en-GB", {
+function formatDate(value) {
+  if (!value) return "No date set";
+  return new Date(`${value}T12:00:00`).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
 }
 
-function dueState(dateString) {
-  if (!dateString) return { label: "No deadline", overdue: false };
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(`${dateString}T00:00:00`);
-  const days = Math.ceil((due - today) / 86400000);
-  if (days < 0) return { label: `${Math.abs(days)}d overdue`, overdue: true };
-  if (days === 0) return { label: "Due today", overdue: false };
-  if (days === 1) return { label: "Due tomorrow", overdue: false };
-  return { label: `Due ${formatDate(dateString)}`, overdue: false };
+function getBusiness(id) {
+  return state.businesses.find((business) => business.id === id);
 }
 
-function openActionCount() {
-  return state.actions.filter((action) => action.status !== "Completed").length;
+function openTasks() {
+  return state.tasks.filter((task) => task.status !== "Completed");
 }
 
-function renderAll() {
-  renderMetrics();
-  renderPriorityList();
-  renderStageChart();
-  renderRecentOpportunities();
-  renderOpportunities();
-  renderActions();
-  populateFilters();
-  elements.navOpportunityCount.textContent = state.opportunities.length;
-  elements.navActionCount.textContent = openActionCount();
-  elements.heroActionCount.textContent = `${openActionCount()} ${
-    openActionCount() === 1 ? "action" : "actions"
-  }`;
+function render() {
+  setDateAndGreeting();
+  renderTasks();
+  renderBusinesses();
+  renderHistory();
+  populateBusinessSelect();
 }
 
-function renderMetrics() {
-  const active = state.opportunities.filter(
-    (item) => !["Closed", "Waiting"].includes(item.status),
-  ).length;
-  const assessments = state.opportunities.filter(
-    (item) => item.status === "Assessment",
-  ).length;
-  const waiting = state.opportunities.filter((item) =>
-    ["Under review", "Waiting"].includes(item.status),
-  ).length;
-  const urgent = state.actions.filter(
-    (action) => action.status !== "Completed" && action.priority === "High",
-  ).length;
-
-  const metrics = [
-    ["Active opportunities", active, `${state.opportunities.length} total records`],
-    ["Assessments", assessments, "Personal completion required"],
-    ["Awaiting response", waiting, "Monitor and follow up"],
-    ["High-priority actions", urgent, urgent ? "Needs attention" : "All clear"],
-  ];
-
-  elements.metricGrid.innerHTML = metrics
-    .map(
-      ([label, value, note]) => `
-        <article class="metric-card">
-          <span>${escapeHtml(label)}</span>
-          <strong>${value}</strong>
-          <small>${escapeHtml(note)}</small>
-        </article>
-      `,
-    )
-    .join("");
-}
-
-function sortedOpenActions() {
-  const priorityRank = { High: 0, Medium: 1, Low: 2 };
-  return state.actions
-    .filter((action) => action.status !== "Completed")
-    .sort((a, b) => {
-      if (priorityRank[a.priority] !== priorityRank[b.priority]) {
-        return priorityRank[a.priority] - priorityRank[b.priority];
-      }
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return a.dueDate.localeCompare(b.dueDate);
-    });
-}
-
-function renderPriorityList() {
-  const actions = sortedOpenActions().slice(0, 5);
-  if (!actions.length) {
-    elements.priorityList.innerHTML =
-      '<div class="empty-state">No outstanding actions.</div>';
-    return;
-  }
-
-  elements.priorityList.innerHTML = actions
-    .map((action) => {
-      const opportunity = state.opportunities.find(
-        (item) => item.id === action.opportunityId,
-      );
-      const due = dueState(action.dueDate);
-      return `
-        <article class="priority-item" data-action-id="${action.id}">
-          <span class="priority-dot ${action.priority}"></span>
-          <div>
-            <strong>${escapeHtml(action.title)}</strong>
-            <small>${escapeHtml(opportunity?.company || "General")} · ${escapeHtml(
-              action.status,
-            )}</small>
-          </div>
-          <span class="due-label ${due.overdue ? "overdue" : ""}">${escapeHtml(
-            due.label,
-          )}</span>
-        </article>
-      `;
-    })
-    .join("");
-}
-
-function renderStageChart() {
-  const counts = OPPORTUNITY_STATUSES.map((status) => ({
-    status,
-    count: state.opportunities.filter((item) => item.status === status).length,
-  })).filter((item) => item.count);
-  const max = Math.max(...counts.map((item) => item.count), 1);
-
-  elements.stageChart.innerHTML = counts.length
-    ? counts
-        .map(
-          (item) => `
-            <div class="stage-row">
-              <div class="stage-label">
-                <span>${escapeHtml(item.status)}</span>
-                <strong>${item.count}</strong>
-              </div>
-              <div class="stage-track">
-                <div class="stage-fill" style="width:${(item.count / max) * 100}%"></div>
-              </div>
-            </div>
-          `,
-        )
-        .join("")
-    : '<div class="empty-state">No pipeline data.</div>';
-}
-
-function renderRecentOpportunities() {
-  const records = [...state.opportunities]
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-    .slice(0, 5);
-
-  elements.recentOpportunities.innerHTML = records.length
-    ? `
-      <table class="opportunity-table">
-        <thead>
-          <tr>
-            <th>Opportunity</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Next review</th>
-            <th>Potential</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${records
-            .map(
-              (item) => `
-                <tr>
-                  <td>
-                    <span class="record-name" data-opportunity-id="${item.id}">
-                      ${escapeHtml(item.name)}
-                    </span>
-                    <small style="display:block;color:var(--muted)">${escapeHtml(
-                      item.company,
-                    )}</small>
-                  </td>
-                  <td><span class="type-chip">${escapeHtml(item.type)}</span></td>
-                  <td><span class="status-chip">${escapeHtml(item.status)}</span></td>
-                  <td>${formatDate(item.reviewDate)}</td>
-                  <td>${escapeHtml(item.value || "Not set")}</td>
-                </tr>
-              `,
-            )
-            .join("")}
-        </tbody>
-      </table>
-    `
-    : '<div class="empty-state">Add your first opportunity.</div>';
-}
-
-function renderOpportunities() {
-  const search = elements.opportunitySearch.value.toLowerCase();
-  const status = elements.statusFilter.value;
-  const type = elements.typeFilter.value;
-  const records = state.opportunities.filter((item) => {
-    const matchesSearch = [item.name, item.company, item.notes]
-      .join(" ")
-      .toLowerCase()
-      .includes(search);
-    const matchesStatus = status === "all" || item.status === status;
-    const matchesType = type === "all" || item.type === type;
-    return matchesSearch && matchesStatus && matchesType;
+function setDateAndGreeting() {
+  const now = new Date();
+  const hour = now.getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  elements.greeting.textContent = `${greeting}, Godfred`;
+  elements.todayLabel.textContent = now.toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
   });
+  const count = openTasks().length;
+  elements.openTaskCount.textContent = `${count} ${count === 1 ? "task" : "tasks"}`;
+}
 
-  elements.opportunityGrid.innerHTML = records.length
-    ? records
-        .map(
-          (item) => `
-            <article class="opportunity-card" data-opportunity-id="${item.id}">
-              <div class="card-top">
-                <span class="type-chip">${escapeHtml(item.type)}</span>
-                <span class="status-chip">${escapeHtml(item.status)}</span>
+function sortedTasks() {
+  const rank = { high: 0, normal: 1, waiting: 2 };
+  return openTasks().sort((a, b) => {
+    if (rank[a.priority] !== rank[b.priority]) return rank[a.priority] - rank[b.priority];
+    if (!a.dueDate) return 1;
+    if (!b.dueDate) return -1;
+    return a.dueDate.localeCompare(b.dueDate);
+  });
+}
+
+function renderTasks() {
+  const tasks = sortedTasks();
+  elements.todayList.innerHTML = tasks.length
+    ? tasks
+        .map((task, index) => {
+          const business = getBusiness(task.businessId);
+          return `
+            <article class="task-row ${escapeHtml(task.priority)}">
+              <span class="task-number">${index + 1}</span>
+              <div class="task-main">
+                <strong>${escapeHtml(task.title)}</strong>
+                <span>${escapeHtml(business?.name || "General")} · ${escapeHtml(task.detail)}</span>
               </div>
-              <h3>${escapeHtml(item.name)}</h3>
-              <div class="company">${escapeHtml(item.company)}</div>
-              <p class="notes">${escapeHtml(item.notes || "No notes added.")}</p>
-              <div class="card-footer">
-                <span>Review ${formatDate(item.reviewDate)}</span>
-                <strong>${escapeHtml(item.value || "Value not set")}</strong>
+              <div class="task-actions">
+                <span class="due">${task.dueDate ? `By ${escapeHtml(formatDate(task.dueDate))}` : "When available"}</span>
+                <a class="button primary small" href="${escapeHtml(business?.url || "#")}" target="_blank" rel="noopener noreferrer">
+                  Open website
+                </a>
               </div>
             </article>
-          `,
-        )
+          `;
+        })
         .join("")
-    : '<div class="empty-state">No opportunities match these filters.</div>';
+    : '<div class="empty">Nothing is outstanding today.</div>';
 }
 
-function renderActions() {
-  const columns = [
-    { label: "Needs action", statuses: ["Outstanding", "In progress"] },
-    { label: "Waiting", statuses: ["Waiting"] },
-    { label: "Completed", statuses: ["Completed"] },
-  ];
-
-  elements.actionBoard.innerHTML = columns
-    .map((column) => {
-      const actions = state.actions.filter((action) =>
-        column.statuses.includes(action.status),
-      );
+function renderBusinesses() {
+  elements.businessList.innerHTML = state.businesses
+    .map((business) => {
+      const remaining = state.tasks.filter(
+        (task) => task.businessId === business.id && task.status !== "Completed",
+      ).length;
       return `
-        <section class="action-column">
-          <div class="action-column-header">
-            <h3>${column.label}</h3>
-            <span>${actions.length}</span>
+        <article class="business-card">
+          <div class="business-card-top">
+            <div class="business-logo">${escapeHtml(business.shortName)}</div>
+            <div>
+              <div class="business-title-row">
+                <h3>${escapeHtml(business.name)}</h3>
+                <span class="status ${escapeHtml(business.statusTone)}">${escapeHtml(business.status)}</span>
+              </div>
+              <p class="business-summary">${escapeHtml(business.currentPosition)}</p>
+            </div>
+            <div class="button-stack">
+              <a class="button primary" href="${escapeHtml(business.url)}" target="_blank" rel="noopener noreferrer">
+                Continue this work
+              </a>
+              <button class="button outline view-business" data-business-id="${escapeHtml(business.id)}">
+                See full details
+              </button>
+            </div>
           </div>
-          ${
-            actions.length
-              ? actions
-                  .map((action) => {
-                    const opportunity = state.opportunities.find(
-                      (item) => item.id === action.opportunityId,
-                    );
-                    const due = dueState(action.dueDate);
-                    return `
-                      <article class="action-card" data-action-id="${action.id}">
-                        <strong>${escapeHtml(action.title)}</strong>
-                        <small>${escapeHtml(opportunity?.name || "General action")}</small>
-                        <div class="action-meta">
-                          <span class="priority-dot ${action.priority}"></span>
-                          <span class="due-label ${due.overdue ? "overdue" : ""}">
-                            ${escapeHtml(due.label)}
-                          </span>
-                        </div>
-                      </article>
-                    `;
-                  })
-                  .join("")
-              : '<div class="empty-state">Nothing here.</div>'
-          }
-        </section>
+          <div class="business-facts">
+            <div class="fact">
+              <span>Login email</span>
+              <strong>${escapeHtml(business.accountEmail)}</strong>
+            </div>
+            <div class="fact">
+              <span>Next action</span>
+              <strong>${escapeHtml(business.nextAction)}</strong>
+            </div>
+            <div class="fact">
+              <span>Check again</span>
+              <strong>${escapeHtml(formatDate(business.nextDate))}</strong>
+            </div>
+            <div class="fact">
+              <span>Still outstanding</span>
+              <strong>${remaining} ${remaining === 1 ? "task" : "tasks"}</strong>
+            </div>
+          </div>
+        </article>
       `;
     })
     .join("");
 }
 
-function populateFilters() {
-  const currentStatus = elements.statusFilter.value || "all";
-  const currentType = elements.typeFilter.value || "all";
-  elements.statusFilter.innerHTML =
-    '<option value="all">All statuses</option>' +
-    OPPORTUNITY_STATUSES.map(
-      (item) => `<option value="${item}">${item}</option>`,
-    ).join("");
-  elements.typeFilter.innerHTML =
-    '<option value="all">All types</option>' +
-    OPPORTUNITY_TYPES.map(
-      (item) => `<option value="${item}">${item}</option>`,
-    ).join("");
-  elements.statusFilter.value = currentStatus;
-  elements.typeFilter.value = currentType;
+function renderHistory() {
+  const records = [...state.history].sort((a, b) => b.date.localeCompare(a.date));
+  elements.historyList.innerHTML = records.length
+    ? records
+        .map((record) => {
+          const business = getBusiness(record.businessId);
+          return `
+            <article class="history-row">
+              <span class="history-date">${escapeHtml(formatDate(record.date))}</span>
+              <span class="history-business">${escapeHtml(business?.name || "General")}</span>
+              <span class="history-note">${escapeHtml(record.note)}</span>
+            </article>
+          `;
+        })
+        .join("")
+    : '<div class="empty">No work history has been recorded.</div>';
 }
 
-function switchView(viewName) {
-  Object.entries(elements.views).forEach(([name, view]) => {
-    view.classList.toggle("active", name === viewName);
-  });
-  elements.navItems.forEach((item) => {
-    item.classList.toggle("active", item.dataset.view === viewName);
-  });
-  elements.pageTitle.textContent =
-    {
-      dashboard: "Opportunity Overview",
-      opportunities: "Opportunity Pipeline",
-      actions: "Action Centre",
-    }[viewName] || "Business House";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function showBusiness(id) {
+  const business = getBusiness(id);
+  if (!business) return;
+  elements.dialogType.textContent = business.type.toUpperCase();
+  elements.dialogTitle.textContent = business.name;
+  elements.businessDetails.innerHTML = `
+    <div class="next-box">
+      <span>WHERE YOU ARE NOW</span>
+      <strong>${escapeHtml(business.currentPosition)}</strong>
+    </div>
+    <section class="progress-section">
+      <h3>Completed</h3>
+      <ul class="check-list">
+        ${business.completed.map((item) => `<li class="done">${escapeHtml(item)}</li>`).join("")}
+      </ul>
+    </section>
+    <section class="progress-section">
+      <h3>Still to do</h3>
+      <ul class="check-list">
+        ${business.outstanding.map((item) => `<li class="open">${escapeHtml(item)}</li>`).join("")}
+      </ul>
+    </section>
+    <div class="next-box">
+      <span>NEXT ACTION</span>
+      <strong>${escapeHtml(business.nextAction)}</strong>
+    </div>
+    <div class="account-box">
+      <span>LOGIN ACCOUNT</span>
+      <strong>${escapeHtml(business.accountEmail)}</strong>
+      <p>Your password remains in your browser password manager and is not published here.</p>
+    </div>
+    <div class="account-box">
+      <span>HOW TO CHECK IT IS WORKING</span>
+      <strong>${escapeHtml(business.healthCheck)}</strong>
+    </div>
+    <div class="dialog-buttons">
+      <a class="button primary" href="${escapeHtml(business.url)}" target="_blank" rel="noopener noreferrer">Open ${escapeHtml(business.name)}</a>
+      <a class="button outline" href="https://passwords.google.com/" target="_blank" rel="noopener noreferrer">Open password manager</a>
+    </div>
+  `;
+  elements.businessDialog.showModal();
 }
 
-function populateSelect(select, values, selectedValue) {
-  select.innerHTML = values
-    .map(
-      (value) =>
-        `<option value="${escapeHtml(value)}" ${
-          value === selectedValue ? "selected" : ""
-        }>${escapeHtml(value)}</option>`,
-    )
+function populateBusinessSelect() {
+  const select = elements.updateForm.elements.businessId;
+  select.innerHTML = state.businesses
+    .map((business) => `<option value="${escapeHtml(business.id)}">${escapeHtml(business.name)}</option>`)
     .join("");
 }
 
-function openOpportunityDialog(id = "") {
-  const item = state.opportunities.find((record) => record.id === id);
-  const form = elements.opportunityForm;
-  form.reset();
-  form.elements.id.value = item?.id || "";
-  form.elements.name.value = item?.name || "";
-  form.elements.company.value = item?.company || "";
-  populateSelect(form.elements.type, OPPORTUNITY_TYPES, item?.type);
-  populateSelect(form.elements.status, OPPORTUNITY_STATUSES, item?.status);
-  form.elements.value.value = item?.value || "";
-  form.elements.reviewDate.value = item?.reviewDate || "";
-  form.elements.url.value = item?.url || "";
-  form.elements.notes.value = item?.notes || "";
-  elements.opportunityDialogTitle.textContent = item
-    ? "Edit opportunity"
-    : "Add opportunity";
-  elements.deleteOpportunityButton.classList.toggle("hidden", !item);
-  elements.opportunityDialog.showModal();
+function showToast(message) {
+  elements.toast.textContent = message;
+  elements.toast.classList.add("show");
+  window.setTimeout(() => elements.toast.classList.remove("show"), 2200);
 }
-
-function openActionDialog(id = "") {
-  const item = state.actions.find((record) => record.id === id);
-  const form = elements.actionForm;
-  form.reset();
-  form.elements.id.value = item?.id || "";
-  form.elements.title.value = item?.title || "";
-  form.elements.opportunityId.innerHTML =
-    '<option value="">General / no opportunity</option>' +
-    state.opportunities
-      .map(
-        (opportunity) =>
-          `<option value="${opportunity.id}">${escapeHtml(
-            opportunity.name,
-          )}</option>`,
-      )
-      .join("");
-  form.elements.opportunityId.value = item?.opportunityId || "";
-  form.elements.priority.value = item?.priority || "Medium";
-  form.elements.dueDate.value = item?.dueDate || "";
-  form.elements.status.value = item?.status || "Outstanding";
-  form.elements.notes.value = item?.notes || "";
-  elements.actionDialogTitle.textContent = item ? "Edit action" : "Add action";
-  elements.deleteActionButton.classList.toggle("hidden", !item);
-  elements.actionDialog.showModal();
-}
-
-elements.navItems.forEach((item) =>
-  item.addEventListener("click", () => switchView(item.dataset.view)),
-);
-
-document.querySelectorAll("[data-switch-view]").forEach((button) =>
-  button.addEventListener("click", () =>
-    switchView(button.dataset.switchView),
-  ),
-);
-
-document
-  .querySelector("#addOpportunityButton")
-  .addEventListener("click", () => openOpportunityDialog());
-document
-  .querySelector("#addActionButton")
-  .addEventListener("click", () => openActionDialog());
 
 document.addEventListener("click", (event) => {
-  const opportunityTarget = event.target.closest("[data-opportunity-id]");
-  const actionTarget = event.target.closest("[data-action-id]");
-  if (opportunityTarget) {
-    openOpportunityDialog(opportunityTarget.dataset.opportunityId);
-  }
-  if (actionTarget) {
-    openActionDialog(actionTarget.dataset.actionId);
-  }
-  if (event.target.closest(".close-dialog")) {
-    event.target.closest("dialog").close();
-  }
+  const businessButton = event.target.closest(".view-business");
+  if (businessButton) showBusiness(businessButton.dataset.businessId);
 });
 
-elements.opportunityForm.addEventListener("submit", (event) => {
+document.querySelector("#closeBusinessDialog").addEventListener("click", () => {
+  elements.businessDialog.close();
+});
+
+document.querySelector("#addUpdateButton").addEventListener("click", () => {
+  elements.updateForm.reset();
+  elements.updateForm.elements.date.value = new Date().toISOString().slice(0, 10);
+  elements.updateDialog.showModal();
+});
+
+document.querySelectorAll(".close-update").forEach((button) => {
+  button.addEventListener("click", () => elements.updateDialog.close());
+});
+
+elements.updateForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const data = Object.fromEntries(new FormData(event.currentTarget));
-  const now = new Date().toISOString();
-  if (data.id) {
-    const index = state.opportunities.findIndex((item) => item.id === data.id);
-    state.opportunities[index] = {
-      ...state.opportunities[index],
-      ...data,
-      updatedAt: now,
-    };
-  } else {
-    state.opportunities.push({
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: now,
-      updatedAt: now,
-    });
-  }
-  saveState();
-  elements.opportunityDialog.close();
-  renderAll();
-});
-
-elements.actionForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const data = Object.fromEntries(new FormData(event.currentTarget));
-  if (data.id) {
-    const index = state.actions.findIndex((item) => item.id === data.id);
-    state.actions[index] = { ...state.actions[index], ...data };
-  } else {
-    state.actions.push({
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-    });
-  }
-  saveState();
-  elements.actionDialog.close();
-  renderAll();
-});
-
-elements.deleteOpportunityButton.addEventListener("click", () => {
-  const id = elements.opportunityForm.elements.id.value;
-  state.opportunities = state.opportunities.filter((item) => item.id !== id);
-  state.actions = state.actions.filter((item) => item.opportunityId !== id);
-  saveState();
-  elements.opportunityDialog.close();
-  renderAll();
-});
-
-elements.deleteActionButton.addEventListener("click", () => {
-  const id = elements.actionForm.elements.id.value;
-  state.actions = state.actions.filter((item) => item.id !== id);
-  saveState();
-  elements.actionDialog.close();
-  renderAll();
-});
-
-[
-  elements.opportunitySearch,
-  elements.statusFilter,
-  elements.typeFilter,
-].forEach((field) => field.addEventListener("input", renderOpportunities));
-
-document.querySelector("#exportButton").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(state, null, 2)], {
-    type: "application/json",
+  const data = new FormData(elements.updateForm);
+  state.history.push({
+    id: `history-${Date.now()}`,
+    businessId: data.get("businessId"),
+    date: data.get("date"),
+    note: data.get("note").trim(),
   });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `finaccord-business-house-${new Date()
-    .toISOString()
-    .slice(0, 10)}.json`;
-  link.click();
-  URL.revokeObjectURL(url);
+  saveState();
+  renderHistory();
+  elements.updateDialog.close();
+  showToast("Update saved on this device.");
 });
 
-elements.importInput.addEventListener("change", async (event) => {
-  const file = event.target.files[0];
-  if (!file) return;
+document.querySelector("#copyUpdatePrompt").addEventListener("click", async () => {
+  const prompt =
+    "Update my Business House dashboard. Business: [name]. Work completed: [what I did]. Result or response: [what happened]. What remains: [next action]. Next check or deadline: [date]. Please update the history, current position, tasks and publish the dashboard.";
   try {
-    const imported = JSON.parse(await file.text());
-    if (!Array.isArray(imported.opportunities) || !Array.isArray(imported.actions)) {
-      throw new Error("Invalid dashboard backup");
-    }
-    state = imported;
-    saveState();
-    renderAll();
+    await navigator.clipboard.writeText(prompt);
+    showToast("Update instructions copied.");
   } catch {
-    alert("This file is not a valid Business House dashboard backup.");
-  } finally {
-    event.target.value = "";
+    showToast("Tell Codex the business, result, next action and date.");
   }
 });
 
-elements.todayLabel.textContent = new Date().toLocaleDateString("en-GB", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-});
-
-renderAll();
+render();
