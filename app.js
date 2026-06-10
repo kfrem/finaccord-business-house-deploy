@@ -89,8 +89,57 @@ const seedData = {
       healthCheck:
         "Each application should have a company, job title, date applied, CV used, current status, and next follow-up date.",
     },
+    {
+      id: "fiverr",
+      name: "Fiverr Freelance Business",
+      shortName: "FV",
+      type: "Freelance marketplace",
+      status: "Needs rebuild",
+      statusTone: "action",
+      url: "https://pro.fiverr.com/users/godfredfrimpong/manage_gigs?source=side_navigation",
+      accountEmail: "kfrem@hotmail.com",
+      currentPosition:
+        "Seller mode is active. The profile is partly built, but the current positioning is too narrow and one paused gig plus one draft gig show 0 impressions, 0 clicks and 0 orders.",
+      nextAction:
+        "Rebuild the Fiverr profile and replace the weak gigs with three focused, AI-assisted English-only services.",
+      nextDate: "2026-06-11",
+      value: "30-day target: £1,000+",
+      completed: [
+        "Seller account confirmed for @godfredfrimpong",
+        "Profile strength checked at 10/12",
+        "Existing profile copy and gig status reviewed",
+        "One paused gig and one draft gig identified with no traction",
+      ],
+      outstanding: [
+        "Confirm how many hours per day can be used for Fiverr delivery",
+        "Select and build the three strongest gig niches",
+        "Rewrite the profile without protected accountancy wording",
+        "Create paste-ready gig titles, descriptions, packages, FAQs and buyer requirements",
+        "Prepare daily Briefs response templates and AI delivery prompts",
+      ],
+      healthCheck:
+        "The Fiverr business is working when there are three active gigs, profile strength is complete, impressions and clicks start appearing, and daily Briefs responses are being sent.",
+    },
   ],
   tasks: [
+    {
+      id: "fiverr-hours",
+      businessId: "fiverr",
+      title: "Confirm daily Fiverr working hours",
+      detail: "The gig plan and 30-day revenue calendar depend on available daily delivery time.",
+      dueDate: "2026-06-10",
+      priority: "high",
+      status: "Open",
+    },
+    {
+      id: "fiverr-rebuild",
+      businessId: "fiverr",
+      title: "Rebuild Fiverr profile and three gigs",
+      detail: "Replace current weak positioning with focused AI-assisted services for first revenue.",
+      dueDate: "2026-06-11",
+      priority: "high",
+      status: "Open",
+    },
     {
       id: "mercor-interview",
       businessId: "mercor",
@@ -147,6 +196,12 @@ const seedData = {
       date: "2026-06-10",
       note: "Finance-focused CV collection prepared for targeted applications.",
     },
+    {
+      id: "history-4",
+      businessId: "fiverr",
+      date: "2026-06-10",
+      note: "Fiverr seller account inspected. Username @godfredfrimpong, profile strength 10/12, one paused gig and one draft gig found with no activity.",
+    },
   ],
 };
 
@@ -179,12 +234,20 @@ function loadState() {
     const parsed = JSON.parse(stored);
     return {
       businesses: seedData.businesses,
-      tasks: parsed.tasks || seedData.tasks,
-      history: parsed.history || seedData.history,
+      tasks: mergeById(seedData.tasks, parsed.tasks),
+      history: mergeById(seedData.history, parsed.history),
     };
   } catch {
     return cloneSeed();
   }
+}
+
+function mergeById(seedItems, storedItems = []) {
+  const storedById = new Map(storedItems.map((item) => [item.id, item]));
+  const merged = seedItems.map((item) => storedById.get(item.id) || item);
+  const seedIds = new Set(seedItems.map((item) => item.id));
+  const extras = storedItems.filter((item) => !seedIds.has(item.id));
+  return [...merged, ...extras];
 }
 
 function saveState() {
